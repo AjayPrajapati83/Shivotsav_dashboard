@@ -1,0 +1,22 @@
+{
+  "name": "Shivotsav Dashboard",
+  "short_name": "Shivotsav",
+  "description": "Live points dashboard for SHIVOTSAV 2026 inter-college fest",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fef3c7",
+  "theme_color": "#f59e0b",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/logos/SHIVOTSAV_LOGO.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logos/SHIVOTSAV_LOGO.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

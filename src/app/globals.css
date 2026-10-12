@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 43 80% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 43 80% 46%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 33% 4%;
+    --foreground: 43 30% 90%;
+    --card: 240 25% 7%;
+    --card-foreground: 43 30% 90%;
+    --popover: 240 25% 7%;
+    --popover-foreground: 43 30% 90%;
+    --primary: 43 80% 46%;
+    --primary-foreground: 240 33% 4%;
+    --secondary: 240 20% 12%;
+    --secondary-foreground: 43 30% 90%;
+    --muted: 240 20% 12%;
+    --muted-foreground: 240 10% 60%;
+    --accent: 240 20% 12%;
+    --accent-foreground: 43 30% 90%;
+    --destructive: 0 62.8% 50.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 15% 18%;
+    --input: 240 15% 18%;
+    --ring: 43 80% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ─── Cosmic Starfield Background ─────────────────────── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.1; transform: scale(0.8); }
+  100% { opacity: var(--max-opacity, 0.8); transform: scale(1.2); }
+}
+
+/* ─── Gold Shimmer Text ───────────────────────────────── */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    #d4a017 0%,
+    #f5d77a 25%,
+    #d4a017 50%,
+    #f5d77a 75%,
+    #d4a017 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Glow effects ────────────────────────────────────── */
+.golden-glow {
+  filter: drop-shadow(0 0 20px rgba(212, 160, 23, 0.4))
+          drop-shadow(0 0 40px rgba(212, 160, 23, 0.2));
+}
+
+.text-glow-gold {
+  text-shadow: 0 0 20px rgba(212, 160, 23, 0.5),
+               0 0 40px rgba(212, 160, 23, 0.3);
+}
+
+/* ─── Rank badges ─────────────────────────────────────── */
+.rank-gold {
+  background: linear-gradient(135deg, #d4a017, #f5d77a, #d4a017);
+  color: #07070d;
+}
+
+.rank-silver {
+  background: linear-gradient(135deg, #8a8a8a, #c0c0c0, #8a8a8a);
+  color: #07070d;
+}
+
+.rank-bronze {
+  background: linear-gradient(135deg, #8B4513, #CD853F, #8B4513);
+  color: white;
+}
+
+/* ─── Mythology accent rings ──────────────────────────── */
+.myth-ring-hindu { box-shadow: 0 0 0 2px #ff9933, 0 0 12px rgba(255, 153, 51, 0.3); }
+.myth-ring-norse { box-shadow: 0 0 0 2px #7eb8da, 0 0 12px rgba(126, 184, 218, 0.3); }
+.myth-ring-egyptian { box-shadow: 0 0 0 2px #40e0d0, 0 0 12px rgba(64, 224, 208, 0.3); }
+.myth-ring-greek { box-shadow: 0 0 0 2px #4169e1, 0 0 12px rgba(65, 105, 225, 0.3); }
+
+/* ─── Scrollbar styling ───────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 23, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 160, 23, 0.5);
+}
+
+/* ─── Responsive utilities ────────────────────────────── */
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ─── Reduced motion ──────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .star,
+  .gold-shimmer,
+  .golden-glow {
+    animation: none !important;
+  }
+  .gold-shimmer {
+    background-position: 0% center;
+  }
+  .star {
+    opacity: 0.4 !important;
+  }
+}
+
+/* ─── Admin light overrides ───────────────────────────── */
+.admin-theme {
+  --background: 210 40% 98%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+}
