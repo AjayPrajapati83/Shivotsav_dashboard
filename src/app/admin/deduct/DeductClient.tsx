@@ -56,7 +56,7 @@ export function DeductClient({
   }, [colleges, collegeSearch]);
 
   const previewPoints = selectedEvent && selectedPenalty
-    ? getPoints(selectedEvent.type, selectedPenalty)
+    ? (getPoints(selectedEvent.type, selectedPenalty) ?? 0)
     : null;
 
   function confirmAndDeduct() {
@@ -83,7 +83,7 @@ export function DeductClient({
         if (errors.length > 0) {
           showToast(errors[0].error!, 'error');
         } else {
-          const totalPoints = previewPoints! * participantCount;
+          const totalPoints = (previewPoints ?? 0) * participantCount;
           showToast(
             `${totalPoints} deducted from ${selectedCollege.name} for ${selectedEvent.name} (${participantCount} participant${participantCount > 1 ? 's' : ''})`, 
             'success'
@@ -324,7 +324,7 @@ export function DeductClient({
             {previewPoints !== null && selectedCollege && (
               <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
                 <p className="text-sm text-red-700">
-                  <span className="font-bold text-lg">{previewPoints * participantCount}</span> points from{' '}
+                  <span className="font-bold text-lg">{(previewPoints ?? 0) * participantCount}</span> points from{' '}
                   <span className="font-semibold">{selectedCollege.name}</span>
                   {participantCount > 1 && (
                     <span className="text-xs block mt-1">

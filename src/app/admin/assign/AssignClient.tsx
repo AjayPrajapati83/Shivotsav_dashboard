@@ -56,7 +56,7 @@ export function AssignClient({
   }, [colleges, collegeSearch]);
 
   const previewPoints = selectedEvent && selectedResult
-    ? getPoints(selectedEvent.type, selectedResult) * ((['PARTICIPATION', 'OTSE'].includes(selectedResult)) ? participantCount : 1)
+    ? (getPoints(selectedEvent.type, selectedResult) ?? 0) * ((['PARTICIPATION', 'OTSE'].includes(selectedResult)) ? participantCount : 1)
     : null;
 
   async function handleAssign() {
@@ -304,7 +304,7 @@ export function AssignClient({
                   </button>
                 </div>
                 <p className="text-xs text-blue-600 mt-2">
-                  {participantCount} participant{participantCount !== 1 ? 's' : ''} × {getPoints(selectedEvent?.type || 'Large', selectedResult)} points = {participantCount * (getPoints(selectedEvent?.type || 'Large', selectedResult))} total points
+                  {participantCount} participant{participantCount !== 1 ? 's' : ''} × {(getPoints(selectedEvent?.type || 'Large', selectedResult) ?? 0)} points = {participantCount * (getPoints(selectedEvent?.type || 'Large', selectedResult) ?? 0)} total points
                 </p>
               </div>
             )}

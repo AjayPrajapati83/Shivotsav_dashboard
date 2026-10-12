@@ -28,12 +28,6 @@ export function Leaderboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  // Load selected house from localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('shivotsav_house');
-    if (saved) setSelectedHouse(saved);
-  }, []);
-
   const fetchLeaderboard = useCallback(async () => {
     try {
       const res = await fetch('/api/leaderboard');
@@ -139,9 +133,6 @@ export function Leaderboard() {
                       </span>
                       {entry.rank === 1 && <span className="text-xs">👑</span>}
                     </div>
-                    <span className="text-xs text-amber-600 font-medium">
-                      {entry.total} points
-                    </span>
                   </div>
 
                   {/* Laurel for top 3 */}
