@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { Event, EventType } from '@/lib/types';
 import { SCORING_RULES } from '@/lib/scoring';
@@ -48,14 +48,22 @@ function getPodiumPoints(type: EventType) {
 function EventCard({ event, index }: { event: Event; index: number }) {
   const style = TYPE_STYLES[event.type];
   const podium = getPodiumPoints(event.type);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={isMobile ? undefined : { opacity: 0, y: 20 }}
+      whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
-      className={`bg-gradient-to-br ${style.bg} backdrop-blur-sm border-2 ${style.border} rounded-xl p-4 sm:p-5 ${style.glow} transition-all duration-300 hover:scale-[1.02] group`}
+      transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: index * 0.05 }}
+      className={`bg-gradient-to-br ${style.bg} backdrop-blur-sm border-2 ${style.border} rounded-xl p-4 sm:p-5 ${style.glow} sm:transition-all sm:duration-300 sm:hover:scale-[1.02] group`}
     >
       {/* Type badge */}
       <div className="flex items-start justify-between mb-3">

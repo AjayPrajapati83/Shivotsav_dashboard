@@ -87,23 +87,23 @@ export function StandingsClient({
 
       {/* Table */}
       <div className="bg-white border border-slate-200 rounded-xl overflow-hidden mb-8">
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+        <div className="overflow-x-auto -webkit-overflow-scrolling-touch">
+          <table className="w-full text-sm min-w-[600px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="text-left px-4 py-3 font-medium text-slate-500">
+                <th className="text-left px-3 sm:px-4 py-3 font-medium text-slate-500">
                   <button onClick={() => toggleSort('rank')} className="flex items-center gap-1 hover:text-slate-700 min-h-[32px]">
                     Rank <ArrowUpDown size={12} />
                   </button>
                 </th>
-                <th className="text-left px-4 py-3 font-medium text-slate-500">
+                <th className="text-left px-3 sm:px-4 py-3 font-medium text-slate-500">
                   <button onClick={() => toggleSort('name')} className="flex items-center gap-1 hover:text-slate-700 min-h-[32px]">
                     College <ArrowUpDown size={12} />
                   </button>
                 </th>
-                <th className="text-right px-4 py-3 font-medium text-slate-500">Event Pts</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-500">Custom +/−</th>
-                <th className="text-right px-4 py-3 font-medium text-slate-500">
+                <th className="text-right px-2 sm:px-4 py-3 font-medium text-slate-500 text-xs sm:text-sm">Event Pts</th>
+                <th className="text-right px-2 sm:px-4 py-3 font-medium text-slate-500 text-xs sm:text-sm">Custom +/−</th>
+                <th className="text-right px-3 sm:px-4 py-3 font-medium text-slate-500">
                   <button onClick={() => toggleSort('total')} className="flex items-center gap-1 justify-end hover:text-slate-700 min-h-[32px] ml-auto">
                     Total <ArrowUpDown size={12} />
                   </button>
@@ -120,7 +120,7 @@ export function StandingsClient({
               ) : (
                 sorted.map((row) => (
                   <tr key={row.college_id} className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
-                    <td className="px-4 py-3">
+                    <td className="px-3 sm:px-4 py-3">
                       <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
                         row.rank === 1 ? 'bg-amber-100 text-amber-700' :
                         row.rank === 2 ? 'bg-slate-200 text-slate-600' :
@@ -130,18 +130,18 @@ export function StandingsClient({
                         {row.rank ?? '—'}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
-                      <div className="font-medium text-slate-700">{row.name}</div>
+                    <td className="px-3 sm:px-4 py-3">
+                      <div className="font-medium text-slate-700 text-xs sm:text-sm">{row.name}</div>
                     </td>
-                    <td className="px-4 py-3 text-right font-mono text-slate-600">{row.event_points}</td>
-                    <td className={`px-4 py-3 text-right font-mono ${
+                    <td className="px-2 sm:px-4 py-3 text-right font-mono text-slate-600 text-xs sm:text-sm">{row.event_points}</td>
+                    <td className={`px-2 sm:px-4 py-3 text-right font-mono text-xs sm:text-sm ${
                       row.custom_points > 0 ? 'text-emerald-600' :
                       row.custom_points < 0 ? 'text-red-500' :
                       'text-slate-400'
                     }`}>
                       {row.custom_points > 0 ? `+${row.custom_points}` : row.custom_points}
                     </td>
-                    <td className="px-4 py-3 text-right font-mono font-bold text-slate-800">{row.total}</td>
+                    <td className="px-3 sm:px-4 py-3 text-right font-mono font-bold text-slate-800 text-sm sm:text-base">{row.total}</td>
                   </tr>
                 ))
               )}
