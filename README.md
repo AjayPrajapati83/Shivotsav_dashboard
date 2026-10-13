@@ -122,3 +122,10 @@ src/
 ## Developer
 
 **Developed by AJAY Prajapati**
+
+
+## Performance Optimizations
+
+- Mobile animations completely removed for instant card rendering
+- Admin tables optimized for touch scrolling
+- Responsive layouts for all screen sizes
