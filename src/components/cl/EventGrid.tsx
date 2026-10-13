@@ -48,7 +48,7 @@ function getPodiumPoints(type: EventType) {
 function EventCard({ event, index }: { event: Event; index: number }) {
   const style = TYPE_STYLES[event.type];
   const podium = getPodiumPoints(event.type);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile (no animation) for SSR
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
@@ -57,14 +57,8 @@ function EventCard({ event, index }: { event: Event; index: number }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  return (
-    <motion.div
-      initial={isMobile ? undefined : { opacity: 0, y: 20 }}
-      whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={isMobile ? { duration: 0 } : { duration: 0.4, delay: index * 0.05 }}
-      className={`bg-gradient-to-br ${style.bg} backdrop-blur-sm border-2 ${style.border} rounded-xl p-4 sm:p-5 ${style.glow} sm:transition-all sm:duration-300 sm:hover:scale-[1.02] group`}
-    >
+  const cardContent = (
+    <>
       {/* Type badge */}
       <div className="flex items-start justify-between mb-3">
         <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${style.badge}`}>
@@ -94,6 +88,27 @@ function EventCard({ event, index }: { event: Event; index: number }) {
         <span className="text-amber-600">🥉 {podium.third}</span>
         <span className="text-amber-500 ml-auto text-[10px]">+{podium.participation}</span>
       </div>
+    </>
+  );
+
+  // Use regular div on mobile, motion.div on desktop
+  if (isMobile) {
+    return (
+      <div className={`bg-gradient-to-br ${style.bg} backdrop-blur-sm border-2 ${style.border} rounded-xl p-4 sm:p-5 ${style.glow} group`}>
+        {cardContent}
+      </div>
+    );
+  }
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
+      className={`bg-gradient-to-br ${style.bg} backdrop-blur-sm border-2 ${style.border} rounded-xl p-4 sm:p-5 ${style.glow} transition-all duration-300 hover:scale-[1.02] group`}
+    >
+      {cardContent}
     </motion.div>
   );
 }
