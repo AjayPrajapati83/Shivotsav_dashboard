@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 import { RefreshCw } from 'lucide-react';
 import type { LeaderboardEntry } from '@/lib/types';
@@ -14,9 +15,44 @@ function getRankStyle(rank: number | null) {
 
 function CrestPlaceholder({ name }: { name: string }) {
   const initial = name.charAt(0);
+  
+  // Map college name to logo filename (remove spaces, match case)
+  const logoMap: Record<string, string> = {
+    'NARASIMHA': 'Narasimha',
+    'HANUMAN': 'Hanuman',
+    'GANESHA': 'Ganesha',
+    'GARUDA': 'Grauda', // Note: filename is "Grauda.png"
+    'THOR': 'Thor',
+    'LOKI': 'Loki',
+    'HELIOS': 'Helios',
+    'OSIRIS': 'Osiris',
+    'SURYA': 'Surya',
+    'AGNI': 'Agni',
+    'KUBERA': 'Kubera',
+    'VARUNA': 'Varuna',
+    'RUDRA': 'Rudra',
+  };
 
+  const logoFilename = logoMap[name.toUpperCase().trim()];
+  const logoPath = logoFilename ? `/CC LOGOS/${logoFilename}.png` : null;
+
+  if (logoPath) {
+    return (
+      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-white border-2 border-amber-300 flex items-center justify-center flex-shrink-0">
+        <Image
+          src={logoPath}
+          alt={name}
+          width={48}
+          height={48}
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+
+  // Fallback to letter circle if logo not found
   return (
-    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-400/40 to-amber-600/40 flex items-center justify-center font-cinzel text-sm sm:text-base font-bold text-amber-900 border-2 border-amber-300">
+    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-400/40 to-amber-600/40 flex items-center justify-center font-cinzel text-sm sm:text-base font-bold text-amber-900 border-2 border-amber-300 flex-shrink-0">
       {initial}
     </div>
   );
