@@ -16,12 +16,13 @@ function getRankStyle(rank: number | null) {
 function CrestPlaceholder({ name }: { name: string }) {
   const initial = name.charAt(0);
   
-  // Map college name to logo filename (remove spaces, match case)
+  // Map college name to logo filename
   const logoMap: Record<string, string> = {
     'NARASIMHA': 'Narasimha',
     'HANUMAN': 'Hanuman',
-    'GANESHA': 'Ganesha',
-    'GARUDA': 'Grauda', // Note: filename is "Grauda.png"
+    'GANESHA': 'Ganesh',
+    'GANESH': 'Ganesh',
+    'GARUDA': 'Grauda',
     'THOR': 'Thor',
     'LOKI': 'Loki',
     'HELIOS': 'Helios',
@@ -31,6 +32,7 @@ function CrestPlaceholder({ name }: { name: string }) {
     'KUBERA': 'Kubera',
     'VARUNA': 'Varuna',
     'RUDRA': 'Rudra',
+    'BALI': 'Bali',
   };
 
   const logoFilename = logoMap[name.toUpperCase().trim()];
