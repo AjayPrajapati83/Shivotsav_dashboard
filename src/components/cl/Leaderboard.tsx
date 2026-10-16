@@ -34,6 +34,7 @@ function CrestPlaceholder({ name }: { name: string }) {
     'RUDRA': 'Rudra',
     'BALI': 'Bali',
     'INDRA': 'Indra',
+    'VISHNU': 'CC_Vishnu',
   };
 
   const logoFilename = logoMap[name.toUpperCase().trim()];
